@@ -1,3 +1,5 @@
+local COMMA = ","
+
 local M = {}
 
 M.get_indent = function(lineNumber)
@@ -47,6 +49,10 @@ M.split_string = function(inputstr, sep)
 		table.insert(t, str)
 	end
 	return t
+end
+
+M.split_string_by_comma = function (inputstr)
+    return M.split_string(inputstr, COMMA)
 end
 
 return M

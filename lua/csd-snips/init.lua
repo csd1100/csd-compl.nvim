@@ -44,9 +44,8 @@ M.debug_string_to_logger = function()
 	vim.notify("Not Yet Implemented")
 end
 
-M.debug_to_specified_logger = function()
-	-- TODO: logger with object specified
-	vim.notify("Not Yet Implemented")
+M.debug_to_specific_logger = function()
+	utils.get_input(VAR_PROMPT, generators.debug_to_specific_logger)
 end
 
 return M

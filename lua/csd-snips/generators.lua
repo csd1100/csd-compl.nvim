@@ -12,48 +12,54 @@ end
 
 M.write_to_console = function()
 	local ft = require(MODULE .. vim.bo.filetype)
-	utils.reducer_pipe({
+	utils.pipe({
 		su.surround_with_parenthesis,
 		ft.prepend_console_function,
 		su.add_indent,
 		utils.write_line_to_buffer,
 		utils.move_cursor_between_paren,
-		utils.start_insert,
-	}, utils.runner, "")
+	}, "")
+	utils.start_insert()
 end
 
 M.debug_to_console = function(input)
 	local ft = require(MODULE .. vim.bo.filetype)
-	utils.reducer_pipe({
+	utils.pipe({
 		ft.get_debug_string,
 		su.surround_with_parenthesis,
 		ft.prepend_console_function,
 		su.add_indent,
 		utils.write_line_to_buffer,
-	}, utils.runner, input)
+	}, input)
 end
 
 M.write_to_logger = function()
 	local ft = require(MODULE .. vim.bo.filetype)
-	utils.reducer_pipe({
+	utils.pipe({
 		su.surround_with_parenthesis,
 		ft.prepend_logger_function,
 		su.add_indent,
 		utils.write_line_to_buffer,
 		utils.move_cursor_between_paren,
-		utils.start_insert,
-	}, utils.runner, "")
+	}, "")
+	utils.start_insert()
 end
 
 M.debug_to_logger = function(input)
 	local ft = require(MODULE .. vim.bo.filetype)
-	utils.reducer_pipe({
+	utils.pipe({
 		ft.get_debug_string,
 		su.surround_with_parenthesis,
 		ft.prepend_logger_function,
 		su.add_indent,
 		utils.write_line_to_buffer,
-	}, utils.runner, input)
+	}, input)
+end
+
+M.debug_to_specific_logger = function(input)
+	M.debug_to_logger(input)
+	utils.move_cursor_to_start_of_next_line()
+	utils.enter_select_mode_with_word_under_cursor()
 end
 
 return M

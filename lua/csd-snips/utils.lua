@@ -1,3 +1,4 @@
+local string_utils = require("csd-snips.string_utils")
 local M = {}
 
 M.shallow_copy = function(t)
@@ -16,6 +17,14 @@ end
 
 M.start_insert = function()
 	vim.cmd.startinsert()
+end
+
+M.start_visual = function()
+	vim.api.nvim_feedkeys("v", "n", true)
+end
+
+M.enter_select_mode_with_word_under_cursor = function()
+	vim.api.nvim_input("ve<C-g>")
 end
 
 M.write_line_to_buffer = function(line)
@@ -54,7 +63,17 @@ M.move_cursor_between_paren = function(str)
 	move_cursor(new_cursor_position)
 end
 
-M.reducer_pipe = function(functions, runner, accumulator)
+M.move_cursor_to_start_of_next_line = function()
+	local current_cursor_position = vim.api.nvim_win_get_cursor(0)
+	local indent_column = string_utils.get_indent(current_cursor_position[1])
+	local new_cursor_position = {
+		current_cursor_position[1] + 1,
+		indent_column,
+	}
+	move_cursor(new_cursor_position)
+end
+
+M.reducer = function(functions, runner, accumulator)
 	local new_accumulator = accumulator
 	for _, to_run in ipairs(functions) do
 		new_accumulator = runner(to_run, new_accumulator)
@@ -64,6 +83,10 @@ end
 
 M.runner = function(to_run, input)
 	return to_run(input)
+end
+
+M.pipe = function(functions, accumulator)
+	return M.reducer(functions, M.runner, accumulator)
 end
 
 return M
