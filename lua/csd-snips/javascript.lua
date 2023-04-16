@@ -23,7 +23,7 @@ local string_utils = require("csd-snips.string_utils")
 
 local M = {}
 
-M.get_debug_line = function(string_input)
+M.get_debug_string = function(string_input)
 	local vars_table = string_utils.split_string(string_input, COMMA)
 	return string_utils.surround_with_back_ticks(get_vars(vars_table))
 end

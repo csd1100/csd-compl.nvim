@@ -14,8 +14,19 @@ M.get_input = function(prompt, callback)
 	}, callback)
 end
 
-M.write_to_buffer = function(line, lineNumber)
+M.write_line_to_buffer = function(line, lineNumber)
 	vim.api.nvim_buf_set_lines(0, lineNumber, lineNumber, false, line)
+end
+
+M.write_text_to_line = function(line, cursorPosition)
+	vim.api.nvim_buf_set_text(
+		0,
+		cursorPosition[1] - 1, -- current row
+		cursorPosition[2] + 1, -- next column
+		cursorPosition[1] - 1,
+		cursorPosition[2] + 1,
+		line
+	)
 end
 
 M.reducer_pipe = function(functions, runner, accumulator)
