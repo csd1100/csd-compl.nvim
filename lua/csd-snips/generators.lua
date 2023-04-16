@@ -33,6 +33,18 @@ M.debug_to_console = function(input)
 	}, input)
 end
 
+-- TODO: refactor
+M.debug_string_to_console = function(input)
+	local ft = require(MODULE .. vim.bo.filetype)
+	utils.pipe({
+		ft.get_debug_string_with_notation,
+		su.surround_with_parenthesis,
+		ft.prepend_console_function,
+		su.add_indent,
+		utils.write_line_to_buffer,
+	}, input)
+end
+
 M.write_to_logger = function()
 	local ft = require(MODULE .. vim.bo.filetype)
 	utils.pipe({
@@ -49,6 +61,18 @@ M.debug_to_logger = function(input)
 	local ft = require(MODULE .. vim.bo.filetype)
 	utils.pipe({
 		ft.get_debug_string,
+		su.surround_with_parenthesis,
+		ft.prepend_logger_function,
+		su.add_indent,
+		utils.write_line_to_buffer,
+	}, input)
+end
+
+-- TODO: refactor
+M.debug_string_to_logger = function(input)
+	local ft = require(MODULE .. vim.bo.filetype)
+	utils.pipe({
+		ft.get_debug_string_with_notation,
 		su.surround_with_parenthesis,
 		ft.prepend_logger_function,
 		su.add_indent,

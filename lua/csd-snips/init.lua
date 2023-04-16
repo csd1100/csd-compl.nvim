@@ -35,13 +35,11 @@ M.debug_to_logger = function()
 end
 
 M.debug_string_to_console = function()
-	-- TODO: console log string representation
-	vim.notify("Not Yet Implemented")
+	utils.get_input(VAR_PROMPT, generators.debug_string_to_console)
 end
 
 M.debug_string_to_logger = function()
-	-- TODO: logger string representation
-	vim.notify("Not Yet Implemented")
+	utils.get_input(VAR_PROMPT, generators.debug_string_to_logger)
 end
 
 M.debug_to_specific_logger = function()

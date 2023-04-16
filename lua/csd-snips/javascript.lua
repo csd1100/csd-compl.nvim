@@ -3,14 +3,21 @@ local WHITESPACE = " "
 local CONSOLE_LOG = "console.log"
 local LOGGER_DEBUG = "logger.debug"
 
+-- TODO: refactor
 local function get_var(var)
 	return var .. ": " .. "${" .. var .. "}"
 end
 
-local function get_vars(vars_table)
+-- TODO: refactor
+local function get_var_with_notation(var)
+	return var .. ": " .. "${JSON.stringify(" .. var .. ")}"
+end
+
+-- TODO: refactor
+local function get_vars_string(vars_table, var_string_generator)
 	local line = ""
 	for i, var in ipairs(vars_table) do
-		local var_string = get_var(var)
+		local var_string = var_string_generator(var)
 		line = line .. var_string
 		if i < #vars_table then
 			line = line .. COMMA .. WHITESPACE
@@ -23,9 +30,16 @@ local string_utils = require("csd-snips.string_utils")
 
 local M = {}
 
+-- TODO: refactor
 M.get_debug_string = function(string_input)
 	local vars_table = string_utils.split_string(string_input, COMMA)
-	return string_utils.surround_with_back_ticks(get_vars(vars_table))
+	return string_utils.surround_with_back_ticks(get_vars_string(vars_table, get_var))
+end
+
+-- TODO: refactor
+M.get_debug_string_with_notation = function(string_input)
+	local vars_table = string_utils.split_string(string_input, COMMA)
+	return string_utils.surround_with_back_ticks(get_vars_string(vars_table, get_var_with_notation))
 end
 
 M.prepend_console_function = function(string_input)
