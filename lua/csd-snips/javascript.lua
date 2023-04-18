@@ -1,45 +1,25 @@
-local COMMA = ","
-local WHITESPACE = " "
+local string_utils = require("csd-snips.string_utils")
+local utils = require("csd-snips.utils")
+
+local SEMICOLON = ";"
 local CONSOLE_LOG = "console.log"
 local LOGGER_DEBUG = "logger.debug"
 
--- TODO: refactor
-local function get_var(var)
-	return var .. ": " .. "${" .. var .. "}"
-end
-
--- TODO: refactor
-local function get_var_with_notation(var)
-	return var .. ": " .. "${JSON.stringify(" .. var .. ")}"
-end
-
--- TODO: refactor
-local function get_vars_string(vars_table, var_string_generator)
-	local line = ""
-	for i, var in ipairs(vars_table) do
-		local var_string = var_string_generator(var)
-		line = line .. var_string
-		if i < #vars_table then
-			line = line .. COMMA .. WHITESPACE
-		end
-	end
-	return line
-end
-
-local string_utils = require("csd-snips.string_utils")
-
 local M = {}
 
--- TODO: refactor
-M.get_debug_string = function(string_input)
-	local vars_table = string_utils.split_string(string_input, COMMA)
-	return string_utils.surround_with_back_ticks(get_vars_string(vars_table, get_var))
+M.without_notation = function(var, append_to)
+	local var_string = var .. ": " .. "${" .. var .. "}"
+	return append_to .. string_utils.surround_string(var_string, "[", "]")
+end
+M.with_notation = function(var, append_to)
+	local var_string = var .. ": " .. "${JSON.stringify(" .. var .. ")}"
+	return append_to .. string_utils.surround_string(var_string, "[", "]")
 end
 
--- TODO: refactor
-M.get_debug_string_with_notation = function(string_input)
-	local vars_table = string_utils.split_string(string_input, COMMA)
-	return string_utils.surround_with_back_ticks(get_vars_string(vars_table, get_var_with_notation))
+M.get_debug_string = function(string_input, var_string_generator)
+	local vars_table = string_utils.split_string(string_input, SEMICOLON)
+	local line = utils.reducer(vars_table, var_string_generator, "")
+	return string_utils.surround_with_back_ticks(line)
 end
 
 M.prepend_console_function = function(string_input)

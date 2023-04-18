@@ -73,10 +73,10 @@ M.move_cursor_to_start_of_next_line = function()
 	move_cursor(new_cursor_position)
 end
 
-M.reducer = function(functions, runner, accumulator)
+M.reducer = function(list, runner, accumulator)
 	local new_accumulator = accumulator
-	for _, to_run in ipairs(functions) do
-		new_accumulator = runner(to_run, new_accumulator)
+	for _, element in ipairs(list) do
+		new_accumulator = runner(element, new_accumulator)
 	end
 	return new_accumulator
 end
@@ -87,6 +87,22 @@ end
 
 M.pipe = function(functions, accumulator)
 	return M.reducer(functions, M.runner, accumulator)
+end
+
+M.decorate_two_param_function = function (fn, prefilledParam)
+    local inner = function (actualParam)
+        local output = fn(actualParam, prefilledParam)
+        return output
+    end
+    return inner
+end
+
+M.decorate_three_param_function = function (fn, prefilledParam)
+    local inner = function (actualParam1, actualParam2)
+        local output = fn(actualParam1, actualParam2, prefilledParam)
+        return output
+    end
+    return inner
 end
 
 return M

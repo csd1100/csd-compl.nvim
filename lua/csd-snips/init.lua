@@ -1,7 +1,7 @@
 local utils = require("csd-snips.utils")
 local generators = require("csd-snips.generators")
 
-local VAR_PROMPT = "Enter comma separated vars to print: "
+local VAR_PROMPT = "Enter semicolon separated vars to print: "
 
 local M = {}
 
