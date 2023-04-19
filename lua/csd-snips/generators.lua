@@ -7,7 +7,7 @@ local M = {}
 
 M.write_debug_string = function(input)
 	local ft = require(MODULE .. vim.bo.filetype)
-	u.write_text_to_line(ft.get_debug_string(input))
+	u.write_text_to_line(ft.get_debug(input))
 end
 
 M.write_to_console = function()
@@ -16,6 +16,7 @@ M.write_to_console = function()
 		su.surround_with_parenthesis,
 		ft.prepend_console_function,
 		su.add_indent,
+		su.append_semicolon,
 		u.write_line_to_buffer,
 		u.move_cursor_between_paren,
 	}, "")
@@ -24,25 +25,24 @@ end
 
 M.debug_to_console = function(input)
 	local ft = require(MODULE .. vim.bo.filetype)
-	local get_debug_string_without_notation =
-		u.decorate_two_param_function(ft.get_debug_string, ft.without_notation)
 	u.pipe({
-		get_debug_string_without_notation,
+		ft.get_debug,
 		su.surround_with_parenthesis,
 		ft.prepend_console_function,
 		su.add_indent,
+		su.append_semicolon,
 		u.write_line_to_buffer,
 	}, input)
 end
 
 M.debug_string_to_console = function(input)
 	local ft = require(MODULE .. vim.bo.filetype)
-	local get_debug_string_with_notation = u.decorate_two_param_function(ft.get_debug_string, ft.with_notation)
 	u.pipe({
-		get_debug_string_with_notation,
+		ft.get_debug_with_notation,
 		su.surround_with_parenthesis,
 		ft.prepend_console_function,
 		su.add_indent,
+		su.append_semicolon,
 		u.write_line_to_buffer,
 	}, input)
 end
@@ -53,6 +53,7 @@ M.write_to_logger = function()
 		su.surround_with_parenthesis,
 		ft.prepend_logger_function,
 		su.add_indent,
+		su.append_semicolon,
 		u.write_line_to_buffer,
 		u.move_cursor_between_paren,
 	}, "")
@@ -61,25 +62,24 @@ end
 
 M.debug_to_logger = function(input)
 	local ft = require(MODULE .. vim.bo.filetype)
-	local get_debug_string_without_notation =
-		u.decorate_two_param_function(ft.get_debug_string, ft.without_notation)
 	u.pipe({
-		get_debug_string_without_notation,
+		ft.get_debug,
 		su.surround_with_parenthesis,
 		ft.prepend_logger_function,
 		su.add_indent,
+		su.append_semicolon,
 		u.write_line_to_buffer,
 	}, input)
 end
 
 M.debug_string_to_logger = function(input)
 	local ft = require(MODULE .. vim.bo.filetype)
-	local get_debug_string_with_notation = u.decorate_two_param_function(ft.get_debug_string, ft.with_notation)
 	u.pipe({
-		get_debug_string_with_notation,
+		ft.get_debug_with_notation,
 		su.surround_with_parenthesis,
 		ft.prepend_logger_function,
 		su.add_indent,
+		su.append_semicolon,
 		u.write_line_to_buffer,
 	}, input)
 end

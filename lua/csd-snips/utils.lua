@@ -89,20 +89,20 @@ M.pipe = function(functions, accumulator)
 	return M.reducer(functions, M.runner, accumulator)
 end
 
-M.decorate_two_param_function = function (fn, prefilledParam)
-    local inner = function (actualParam)
-        local output = fn(actualParam, prefilledParam)
-        return output
-    end
-    return inner
+M.decorate_two_param_function = function(fn, prefilledParam)
+	local inner = function(actualParam)
+		local output = fn(actualParam, prefilledParam)
+		return output
+	end
+	return inner
 end
 
-M.decorate_three_param_function = function (fn, prefilledParam)
-    local inner = function (actualParam1, actualParam2)
-        local output = fn(actualParam1, actualParam2, prefilledParam)
-        return output
-    end
-    return inner
+M.decorate_three_param_function = function(fn, prefilledParam1, prefilledParam2)
+	local inner = function(actualParam)
+		local output = fn(prefilledParam1, prefilledParam2, actualParam)
+		return output
+	end
+	return inner
 end
 
 return M
