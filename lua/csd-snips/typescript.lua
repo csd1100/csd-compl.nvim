@@ -1,1 +1,1 @@
--- TODO: entire functionality
+return require('csd-snips.javascript')
