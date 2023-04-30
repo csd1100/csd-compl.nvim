@@ -1,1 +1,1 @@
-return require('csd-snips.javascript')
+return require("csd-snips.javascript")
