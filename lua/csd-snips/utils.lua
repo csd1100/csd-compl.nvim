@@ -50,16 +50,10 @@ local move_cursor = function(cursor_position)
 	vim.api.nvim_win_set_cursor(0, cursor_position)
 end
 
-local change_cursor_location = function(current, row_increase, column_increase)
-	local cursor_position = M.shallow_copy(current)
-	cursor_position[1] = cursor_position[1] + row_increase
-	cursor_position[2] = cursor_position[2] + column_increase
-	return cursor_position
-end
-
 M.move_cursor_between_paren = function(str)
 	local paren_position = string.find(str, "%(")
-	local new_cursor_position = change_cursor_location(vim.api.nvim_win_get_cursor(0), 1, paren_position + 1)
+	local new_cursor_position = { vim.api.nvim_win_get_cursor(0)[1] + 1, paren_position }
+	print(vim.inspect(new_cursor_position))
 	move_cursor(new_cursor_position)
 end
 
