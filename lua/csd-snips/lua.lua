@@ -5,17 +5,25 @@ local CONSOLE_LOG = "print"
 local LOGGER_DEBUG = "vim.notify"
 
 local get_var = function(var, append_to)
-    local var_string = var .. ": " .. ".." .. var
-    return append_to
-        .. string_utils.surround_with_square_brackets(var_string)
-        .. "\\n"
+    local var_string = '"['
+        .. var
+        .. ": "
+        .. '" .. '
+        .. var
+        .. ' .. "'
+        .. ']\\n"'
+    return append_to .. var_string
 end
 
 local get_var_with_notation = function(var, append_to)
-    local var_string = var .. ": " .. "tostring(" .. var .. ")}"
-    return append_to
-        .. string_utils.surround_with_square_brackets(var_string)
-        .. "\\n"
+    local var_string = '"['
+        .. var
+        .. ": "
+        .. '" .. tostring('
+        .. var
+        .. ') .. "'
+        .. ']\\n"'
+    return append_to .. var_string
 end
 
 local M = {}
@@ -23,13 +31,13 @@ local M = {}
 M.get_vars = function(string_input)
     local vars_table = string_utils.split_string_by_semicolon(string_input)
     local line = utils.reducer(vars_table, get_var, "")
-    return string_utils.surround_with_back_ticks(line)
+    return line
 end
 
 M.get_vars_with_notation = function(string_input)
     local vars_table = string_utils.split_string_by_semicolon(string_input)
     local line = utils.reducer(vars_table, get_var_with_notation, "")
-    return string_utils.surround_with_back_ticks(line)
+    return line
 end
 
 M.prepend_console_function = function(string_input)
