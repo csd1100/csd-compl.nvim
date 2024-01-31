@@ -26,12 +26,6 @@ M.setup = function(config)
     -- TODO: mapping config
 end
 
-M.write_vars_string = function()
-    check_filetype(function()
-        utils.get_input(VAR_PROMPT, generators.write_vars_string)
-    end)
-end
-
 M.write_to_console = function()
     check_filetype(function()
         generators.write_to_console()
@@ -41,6 +35,12 @@ end
 M.write_to_logger = function()
     check_filetype(function()
         generators.write_to_logger()
+    end)
+end
+
+M.write_vars_string = function()
+    check_filetype(function()
+        utils.get_input(VAR_PROMPT, generators.write_vars_string)
     end)
 end
 
@@ -71,6 +71,42 @@ end
 M.vars_to_specific_logger = function()
     check_filetype(function()
         utils.get_input(VAR_PROMPT, generators.vars_to_specific_logger)
+    end)
+end
+
+M.write_vars_string_for_word_under_cursor = function()
+    check_filetype(function()
+        utils.get_word_under_cursor(generators.write_vars_string)
+    end)
+end
+
+M.word_under_cursor_to_console = function()
+    check_filetype(function()
+        utils.get_word_under_cursor(generators.vars_to_console)
+    end)
+end
+
+M.word_under_cursor_to_logger = function()
+    check_filetype(function()
+        utils.get_word_under_cursor(generators.vars_to_logger)
+    end)
+end
+
+M.word_under_cursor_string_to_console = function()
+    check_filetype(function()
+        utils.get_word_under_cursor(generators.vars_string_to_console)
+    end)
+end
+
+M.word_under_cursor_string_to_logger = function()
+    check_filetype(function()
+        utils.get_word_under_cursor(generators.vars_string_to_logger)
+    end)
+end
+
+M.word_under_cursor_to_specific_logger = function()
+    check_filetype(function()
+        utils.get_word_under_cursor(generators.vars_to_specific_logger)
     end)
 end
 

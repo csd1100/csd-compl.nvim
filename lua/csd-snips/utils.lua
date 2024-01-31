@@ -15,6 +15,18 @@ M.get_input = function(prompt, callback)
     }, callback)
 end
 
+M.get_word_under_cursor = function(callback)
+    local node = vim.treesitter.get_node({ bufnr = 0 })
+    if node ~= nil then
+        local text = vim.treesitter.get_node_text(node, 0, {})
+        callback(text)
+    else
+        vim.notify(
+            "unable to get word under cursor; make sure treesitter and parser is installed"
+        )
+    end
+end
+
 M.start_insert = function()
     vim.cmd.startinsert()
 end
