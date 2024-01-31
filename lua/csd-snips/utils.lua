@@ -58,7 +58,7 @@ M.write_text_to_line = function(line)
     return line
 end
 
-local move_cursor = function(cursor_position)
+M.move_cursor = function(cursor_position)
     vim.api.nvim_win_set_cursor(0, cursor_position)
 end
 
@@ -66,7 +66,7 @@ M.move_cursor_between_paren = function(str)
     local paren_position = string.find(str, "%(")
     local new_cursor_position =
         { vim.api.nvim_win_get_cursor(0)[1] + 1, paren_position }
-    move_cursor(new_cursor_position)
+    M.move_cursor(new_cursor_position)
 end
 
 M.move_cursor_to_start_of_next_line = function()
@@ -76,7 +76,7 @@ M.move_cursor_to_start_of_next_line = function()
         current_cursor_position[1] + 1,
         indent_column,
     }
-    move_cursor(new_cursor_position)
+    M.move_cursor(new_cursor_position)
 end
 
 M.reducer = function(list, runner, accumulator)

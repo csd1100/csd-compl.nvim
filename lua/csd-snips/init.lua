@@ -110,4 +110,10 @@ M.word_under_cursor_to_specific_logger = function()
     end)
 end
 
+M.go = {
+    print_nil_check = function()
+        require("csd-snips.go").print_nil_check()
+    end,
+}
+
 return M

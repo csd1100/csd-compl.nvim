@@ -69,8 +69,18 @@ M.append_semicolon_if_needed = function(string_input)
     return string_input
 end
 
-M.print_nil_check = function ()
-    -- TODO :
+M.print_nil_check = function()
+    vim.api.nvim_put({
+        "if err != nil {",
+        "\treturn x,nil",
+        "}",
+    }, "l", true, false)
+    -- crude way of doing following thing
+    -- 1. Select all 3 lines
+    -- 2. indent the lines
+    -- 3. go to 'x'
+    -- 4. enter select mode on 'x'
+    vim.api.nvim_input("Vjjj=jeev;<C-g><C-r>_")
 end
 
 return M
