@@ -28,7 +28,7 @@ M.append_semicolon = function(str)
     return M.append(str, SEMICOLON)
 end
 
-M.surround_string = function(str, start_surround, end_surround)
+M.surround_string_with = function(str, start_surround, end_surround)
     return start_surround .. str .. end_surround
 end
 

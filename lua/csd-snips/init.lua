@@ -26,9 +26,9 @@ M.setup = function(config)
     -- TODO: mapping config
 end
 
-M.write_debug_string = function()
+M.write_vars_string = function()
     check_filetype(function()
-        utils.get_input(VAR_PROMPT, generators.write_debug_string)
+        utils.get_input(VAR_PROMPT, generators.write_vars_string)
     end)
 end
 
@@ -44,33 +44,33 @@ M.write_to_logger = function()
     end)
 end
 
-M.debug_to_console = function()
+M.vars_to_console = function()
     check_filetype(function()
-        utils.get_input(VAR_PROMPT, generators.debug_to_console)
+        utils.get_input(VAR_PROMPT, generators.vars_to_console)
     end)
 end
 
-M.debug_to_logger = function()
+M.vars_to_logger = function()
     check_filetype(function()
-        utils.get_input(VAR_PROMPT, generators.debug_to_logger)
+        utils.get_input(VAR_PROMPT, generators.vars_to_logger)
     end)
 end
 
-M.debug_string_to_console = function()
+M.vars_string_to_console = function()
     check_filetype(function()
-        utils.get_input(VAR_PROMPT, generators.debug_string_to_console)
+        utils.get_input(VAR_PROMPT, generators.vars_string_to_console)
     end)
 end
 
-M.debug_string_to_logger = function()
+M.vars_string_to_logger = function()
     check_filetype(function()
-        utils.get_input(VAR_PROMPT, generators.debug_string_to_logger)
+        utils.get_input(VAR_PROMPT, generators.vars_string_to_logger)
     end)
 end
 
-M.debug_to_specific_logger = function()
+M.vars_to_specific_logger = function()
     check_filetype(function()
-        utils.get_input(VAR_PROMPT, generators.debug_to_specific_logger)
+        utils.get_input(VAR_PROMPT, generators.vars_to_specific_logger)
     end)
 end
 
